@@ -7,11 +7,12 @@ document.addEventListener("DOMContentLoaded", () => {
   // Function to fetch activities from API
   async function fetchActivities() {
     try {
-      const response = await fetch("/activities");
+      const response = await fetch("/activities", { cache: 'no-store' });
       const activities = await response.json();
 
-      // Clear loading message
+      // Clear loading message and reset activity select
       activitiesList.innerHTML = "";
+      activitySelect.innerHTML = '<option value="">-- Select an activity --</option>';
 
       // Populate activities list
       Object.entries(activities).forEach(([name, details]) => {
@@ -25,9 +26,65 @@ document.addEventListener("DOMContentLoaded", () => {
           <p>${details.description}</p>
           <p><strong>Schedule:</strong> ${details.schedule}</p>
           <p><strong>Availability:</strong> ${spotsLeft} spots left</p>
+          <div class="participants-section">
+            <strong>Participants:</strong>
+            <ul class="participants-list"></ul>
+          </div>
         `;
 
+        // Append card then populate participants as DOM nodes (so we can add delete handlers)
         activitiesList.appendChild(activityCard);
+
+        const participantsUl = activityCard.querySelector('.participants-list');
+        if (details.participants.length === 0) {
+          const emptyLi = document.createElement('li');
+          emptyLi.textContent = 'No participants yet';
+          emptyLi.style.color = '#999';
+          participantsUl.appendChild(emptyLi);
+        } else {
+          details.participants.forEach((p) => {
+            const li = document.createElement('li');
+            li.className = 'participant-item';
+
+            const span = document.createElement('span');
+            span.className = 'participant-email';
+            span.textContent = p;
+
+            const btn = document.createElement('button');
+            btn.className = 'remove-btn';
+            btn.title = 'Remove participant';
+            btn.innerHTML = '&#x2716;'; // heavy multiplication x
+            btn.addEventListener('click', async () => {
+              if (!confirm(`Remove ${p} from ${name}?`)) return;
+              try {
+                const res = await fetch(`/activities/${encodeURIComponent(name)}/participants?email=${encodeURIComponent(p)}`, { method: 'DELETE' });
+                const rj = await res.json();
+                if (res.ok) {
+                  messageDiv.textContent = rj.message;
+                  messageDiv.className = 'success';
+                  messageDiv.classList.remove('hidden');
+                  // Refresh activities list to reflect change
+                  await fetchActivities();
+                } else {
+                  messageDiv.textContent = rj.detail || 'Failed to remove participant';
+                  messageDiv.className = 'error';
+                  messageDiv.classList.remove('hidden');
+                }
+                setTimeout(() => messageDiv.classList.add('hidden'), 4000);
+              } catch (err) {
+                console.error('Error removing participant:', err);
+                messageDiv.textContent = 'Failed to remove participant';
+                messageDiv.className = 'error';
+                messageDiv.classList.remove('hidden');
+                setTimeout(() => messageDiv.classList.add('hidden'), 4000);
+              }
+            });
+
+            li.appendChild(span);
+            li.appendChild(btn);
+            participantsUl.appendChild(li);
+          });
+        }
 
         // Add option to select dropdown
         const option = document.createElement("option");
@@ -62,6 +119,8 @@ document.addEventListener("DOMContentLoaded", () => {
         messageDiv.textContent = result.message;
         messageDiv.className = "success";
         signupForm.reset();
+        // Refresh activities to show updated participants and availability
+        await fetchActivities();
       } else {
         messageDiv.textContent = result.detail || "An error occurred";
         messageDiv.className = "error";
@@ -84,3 +143,4 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initialize app
   fetchActivities();
 });
+ 
