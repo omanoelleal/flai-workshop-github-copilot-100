@@ -61,20 +61,20 @@ document.addEventListener("DOMContentLoaded", () => {
                 const rj = await res.json();
                 if (res.ok) {
                   messageDiv.textContent = rj.message;
-                  messageDiv.className = 'success';
+                  messageDiv.className = 'message success';
                   messageDiv.classList.remove('hidden');
                   // Refresh activities list to reflect change
                   await fetchActivities();
                 } else {
                   messageDiv.textContent = rj.detail || 'Failed to remove participant';
-                  messageDiv.className = 'error';
+                  messageDiv.className = 'message error';
                   messageDiv.classList.remove('hidden');
                 }
                 setTimeout(() => messageDiv.classList.add('hidden'), 4000);
               } catch (err) {
                 console.error('Error removing participant:', err);
                 messageDiv.textContent = 'Failed to remove participant';
-                messageDiv.className = 'error';
+                messageDiv.className = 'message error';
                 messageDiv.classList.remove('hidden');
                 setTimeout(() => messageDiv.classList.add('hidden'), 4000);
               }
@@ -117,13 +117,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (response.ok) {
         messageDiv.textContent = result.message;
-        messageDiv.className = "success";
+        messageDiv.className = "message success";
         signupForm.reset();
         // Refresh activities to show updated participants and availability
         await fetchActivities();
       } else {
         messageDiv.textContent = result.detail || "An error occurred";
-        messageDiv.className = "error";
+        messageDiv.className = "message error";
       }
 
       messageDiv.classList.remove("hidden");
@@ -134,7 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 5000);
     } catch (error) {
       messageDiv.textContent = "Failed to sign up. Please try again.";
-      messageDiv.className = "error";
+      messageDiv.className = "message error";
       messageDiv.classList.remove("hidden");
       console.error("Error signing up:", error);
     }
