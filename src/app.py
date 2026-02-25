@@ -11,8 +11,8 @@ from fastapi.responses import RedirectResponse
 import os
 from pathlib import Path
 
-app = FastAPI(title="Mergington High School API",
-              description="API for viewing and signing up for extracurricular activities")
+app = FastAPI(title="Escola do Futuro API",
+              description="API para visualizar e se inscrever em atividades extracurriculares inovadoras")
 
 # Mount the static files directory
 current_dir = Path(__file__).parent
@@ -23,58 +23,58 @@ app.mount("/static", StaticFiles(directory=os.path.join(Path(__file__).parent,
 # In-memory activity database
 activities = {
     "Chess Club": {
-        "description": "Learn strategies and compete in chess tournaments",
-        "schedule": "Fridays, 3:30 PM - 5:00 PM",
+        "description": "Aprenda estratégias e compita em torneios de xadrez",
+        "schedule": "Sextas-feiras, 15:30 - 17:00",
         "max_participants": 12,
-        "participants": ["michael@mergington.edu", "daniel@mergington.edu"]
+        "participants": ["michael@escolafuturo.edu", "daniel@escolafuturo.edu"]
     },
-    "Programming Class": {
-        "description": "Learn programming fundamentals and build software projects",
-        "schedule": "Tuesdays and Thursdays, 3:30 PM - 4:30 PM",
+    "Programação e IA": {
+        "description": "Aprenda programação e inteligência artificial para o futuro",
+        "schedule": "Terças e quintas, 15:30 - 16:30",
         "max_participants": 20,
-        "participants": ["emma@mergington.edu", "sophia@mergington.edu"]
+        "participants": ["emma@escolafuturo.edu", "sophia@escolafuturo.edu"]
     },
-    "Gym Class": {
-        "description": "Physical education and sports activities",
-        "schedule": "Mondays, Wednesdays, Fridays, 2:00 PM - 3:00 PM",
+    "Educação Física": {
+        "description": "Atividades físicas e esportes para saúde e bem-estar",
+        "schedule": "Segundas, quartas e sextas, 14:00 - 15:00",
         "max_participants": 30,
-        "participants": ["john@mergington.edu", "olivia@mergington.edu"]
+        "participants": ["john@escolafuturo.edu", "olivia@escolafuturo.edu"]
     },
-    "Basketball Team": {
-        "description": "Competitive basketball with drills and games",
-        "schedule": "Mondays and Wednesdays, 4:00 PM - 5:30 PM",
+    "Basquete": {
+        "description": "Basquete competitivo com treinamentos e jogos",
+        "schedule": "Segundas e quartas, 16:00 - 17:30",
         "max_participants": 15,
-        "participants": ["alex@mergington.edu", "jordan@mergington.edu"]
+        "participants": ["alex@escolafuturo.edu", "jordan@escolafuturo.edu"]
     },
-    "Tennis Club": {
-        "description": "Learn tennis skills and compete in matches",
-        "schedule": "Tuesdays and Thursdays, 4:00 PM - 5:00 PM",
+    "Tênis": {
+        "description": "Aprenda técnicas de tênis e compete em partidas",
+        "schedule": "Terças e quintas, 16:00 - 17:00",
         "max_participants": 10,
-        "participants": ["sarah@mergington.edu"]
+        "participants": ["sarah@escolafuturo.edu"]
     },
-    "Art Studio": {
-        "description": "Explore painting, drawing, and sculpture techniques",
-        "schedule": "Wednesdays and Fridays, 3:30 PM - 5:00 PM",
+    "Estúdio de Arte Digital": {
+        "description": "Explore pintura digital, design e técnicas de arte moderna",
+        "schedule": "Quartas e sextas, 15:30 - 17:00",
         "max_participants": 18,
-        "participants": ["maya@mergington.edu", "lucas@mergington.edu"]
+        "participants": ["maya@escolafuturo.edu", "lucas@escolafuturo.edu"]
     },
-    "Music Band": {
-        "description": "Play in the school band and perform at events",
-        "schedule": "Mondays and Fridays, 4:00 PM - 5:00 PM",
+    "Banda Musical": {
+        "description": "Toque em banda escolar e apresente em eventos",
+        "schedule": "Segundas e sextas, 16:00 - 17:00",
         "max_participants": 25,
-        "participants": ["evan@mergington.edu", "isabella@mergington.edu"]
+        "participants": ["evan@escolafuturo.edu", "isabella@escolafuturo.edu"]
     },
-    "Robotics Club": {
-        "description": "Build and program robots for competitions",
-        "schedule": "Tuesdays and Thursdays, 4:30 PM - 6:00 PM",
+    "Clube de Robótica": {
+        "description": "Construa e programe robôs para competições inovadoras",
+        "schedule": "Terças e quintas, 16:30 - 18:00",
         "max_participants": 16,
-        "participants": ["aiden@mergington.edu", "chloe@mergington.edu"]
+        "participants": ["aiden@escolafuturo.edu", "chloe@escolafuturo.edu"]
     },
-    "Science Olympiad": {
-        "description": "Compete in science events and experiments",
-        "schedule": "Wednesdays, 3:30 PM - 5:00 PM",
+    "Olimpíada de Ciências": {
+        "description": "Participe em eventos científicos e experimentos práticos",
+        "schedule": "Quartas, 15:30 - 17:00",
         "max_participants": 14,
-        "participants": ["noah@mergington.edu", "ava@mergington.edu"]
+        "participants": ["noah@escolafuturo.edu", "ava@escolafuturo.edu"]
     }
 }
 

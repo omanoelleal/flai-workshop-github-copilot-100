@@ -60,13 +60,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 const res = await fetch(`/activities/${encodeURIComponent(name)}/participants?email=${encodeURIComponent(p)}`, { method: 'DELETE' });
                 const rj = await res.json();
                 if (res.ok) {
-                  messageDiv.textContent = rj.message;
+                  messageDiv.textContent = rj.message + " ✓";
                   messageDiv.className = 'message success';
                   messageDiv.classList.remove('hidden');
-                  // Refresh activities list to reflect change
                   await fetchActivities();
                 } else {
-                  messageDiv.textContent = rj.detail || 'Failed to remove participant';
+                  messageDiv.textContent = rj.detail || 'Falha ao remover participante';
                   messageDiv.className = 'message error';
                   messageDiv.classList.remove('hidden');
                 }
@@ -116,13 +115,13 @@ document.addEventListener("DOMContentLoaded", () => {
       const result = await response.json();
 
       if (response.ok) {
-        messageDiv.textContent = result.message;
+        messageDiv.textContent = result.message + " 🎉";
         messageDiv.className = "message success";
         signupForm.reset();
         // Refresh activities to show updated participants and availability
         await fetchActivities();
       } else {
-        messageDiv.textContent = result.detail || "An error occurred";
+        messageDiv.textContent = result.detail || "An error occurred" + " ❌";
         messageDiv.className = "message error";
       }
 

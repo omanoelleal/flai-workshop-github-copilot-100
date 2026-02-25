@@ -1,3 +1,5 @@
+### v1.0
+
 # Plano completo — Testes backend FastAPI
 
 ## Objetivo
